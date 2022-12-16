@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.project.mapper.interfaces.StudentMapper">
+
+    <resultMap id="studentResultMap" type="Student">
+        <id property="id" column="id" />
+        <result property="name" column="name"/>
+        <result property="classId" column="class_id"/>
+        <result property="year" column="year"/>
+    </resultMap>
+
+    <sql id="studentColumns">${alias}.id, ${alias}.name, ${alias}.class_id, ${alias}.year</sql>
+
+    <select id="selectStudentsUsingReusableSql" resultMap="studentResultMap">
+        select
+        <include refid="studentColumns"><property name="alias" value="s"/></include>
+        from student s
+    </select>
+
+    <select id="selectAllStudents" resultMap="studentResultMap">
+        select * from student
+    </select>
+
+    <select id="selectStudentName" parameterType="int" resultType="string">
+        select name from student where id = #{id}
+    </select>
+</mapper>
