@@ -1,10 +1,10 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
+import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Exam {
@@ -31,6 +31,6 @@ public class Exam {
     private String room;
 
     @OneToMany(mappedBy = "exam")
-    private Set<Grade> grades;
+    private List<Grade> grades = new ArrayList<>();
 
 }

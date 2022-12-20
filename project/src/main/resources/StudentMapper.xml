@@ -4,26 +4,61 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.project.mapper.interfaces.StudentMapper">
 
-    <resultMap id="studentResultMap" type="Student">
+    <resultMap id="studentResultMap" type="Student">    <!--autoMappingBehavior = PARTIAL // no nested mappings; autoMappingUnknownColumnBehavior = NONE-->
         <id property="id" column="id" />
         <result property="name" column="name"/>
         <result property="classId" column="class_id"/>
         <result property="year" column="year"/>
     </resultMap>
+    
+    <resultMap id="detailedStudentResultMap" type="Student" autoMapping="true">
+        <id property="id" column="id" />
+        <result property="classId" column="class_id"/>
+        <collection property="grades" javaType="ArrayList" ofType="Grade">
+            <result property="grade" column="grade"/>
+
+            <association property="exam" javaType="Exam">
+                <id property="id" column="id"/>
+                <result property="subject" column="subject"/>
+                <result property="professor" column="professor"/>
+            </association>
+        </collection>
+    </resultMap>
 
     <sql id="studentColumns">${alias}.id, ${alias}.name, ${alias}.class_id, ${alias}.year</sql>
 
     <select id="selectStudentsUsingReusableSql" resultMap="studentResultMap">
-        select
+        SELECT
         <include refid="studentColumns"><property name="alias" value="s"/></include>
-        from student s
+        FROM student s
     </select>
 
     <select id="selectAllStudents" resultMap="studentResultMap">
-        select * from student
+        SELECT * FROM student
+    </select>
+
+    <select id="selectAllStudentsProfiles" resultMap="detailedStudentResultMap">
+        SELECT * FROM student s
+        INNER JOIN grade g ON g.student_id = s.id
+        INNER JOIN exam e on e.id = g.exam_id
     </select>
 
     <select id="selectStudentName" parameterType="int" resultType="string">
-        select name from student where id = #{id}
+        SELECT name FROM student WHERE id = #{id}
     </select>
+
+    <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
+<!--        <selectKey keyProperty="id" resultType="int" order="BEFORE">--> <!-- this will work with sequence id -->
+<!--            select STUD_SEQUENCE.nextval from dual-->
+<!--        </selectKey>-->
+        INSERT INTO student (name, class_id, year) VALUES(#{name}, #{classId}, #{year})
+    </insert>
+
+    <update id="updateStudentName">
+        UPDATE student set name = #{name} where id = #{id}
+    </update>
+
+    <delete id="deleteStudent" parameterType="int">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
 </mapper>

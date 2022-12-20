@@ -4,8 +4,20 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <settings>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/> <!-- default: false -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="NONE"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="returnInstanceForEmptyRow" value="false"/>
+<!--        <setting name="logImpl" value="SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING"/>-->
+    </settings>
+
     <typeAliases>
         <typeAlias alias="Student" type="com.example.project.model.Student"/>
+        <typeAlias alias="Grade" type="com.example.project.model.Grade"/>
+        <typeAlias alias="Exam" type="com.example.project.model.Exam"/>
     </typeAliases>
 
     <environments default="development">

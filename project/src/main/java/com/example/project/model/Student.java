@@ -3,7 +3,8 @@ package com.example.project.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,5 +25,5 @@ public class Student {
     private Integer year;
 
     @OneToMany(mappedBy = "student")
-    private Set<Grade> grades;
+    private List<Grade> grades = new ArrayList<>();
 }

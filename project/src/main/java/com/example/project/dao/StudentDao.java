@@ -5,6 +5,7 @@ import com.example.project.mapper.interfaces.StudentMapper;
 import com.example.project.mapper.interfaces.StudentMapper2;
 import com.example.project.model.Student;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,8 +20,12 @@ public class StudentDao {
 //        return mapper.getStudents();
 
         SqlSession session = MyBatisSqlSessionFactory.openSession();
+
         StudentMapper mapper = session.getMapper(StudentMapper.class);
-        return mapper.selectAllStudents();
+        return mapper.selectAllStudentsProfiles();
+
+
+//        return studentMapper.selectAllStudentsProfiles();
     }
 
     public Student getStudentById(Integer id) {
@@ -39,7 +44,8 @@ public class StudentDao {
 
     public void persistStudent(Student student) {
         SqlSession session = MyBatisSqlSessionFactory.openSession();
-        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
+//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
 
         mapper.insertStudent(student);
         session.commit();
@@ -48,9 +54,20 @@ public class StudentDao {
 
     public void updateStudentName(Integer id, String name) {
         SqlSession session = MyBatisSqlSessionFactory.openSession();
-        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
+//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
 
         mapper.updateStudentName(id, name);
+        session.commit();
+        session.close();
+    }
+
+    public void deleteStudent(Integer id) {
+        SqlSession session = MyBatisSqlSessionFactory.openSession();
+//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
+
+        mapper.deleteStudent(id);
         session.commit();
         session.close();
     }

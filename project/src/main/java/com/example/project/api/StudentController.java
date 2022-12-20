@@ -41,4 +41,9 @@ public class StudentController {
         studentService.updateStudentName(id, studentDto.name);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Integer id) {
+        studentService.deleteStudent(id);
+    }
+
 }

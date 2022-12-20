@@ -38,4 +38,8 @@ public class StudentService {
     public void updateStudentName(Integer id, String name) {
         studentDao.updateStudentName(id, name);
     }
+
+    public void deleteStudent(Integer id) {
+        studentDao.deleteStudent(id);
+    }
 }

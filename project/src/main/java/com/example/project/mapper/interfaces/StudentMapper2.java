@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface StudentMapper2 {
 
     @Select("SELECT * FROM student")
@@ -25,6 +26,7 @@ public interface StudentMapper2 {
     })
     Student getStudentByColumn(@Param("column") String column, @Param("value") String value);
 
+//    @SelectKey(statement = "SELECT identity('student')", keyProperty = "id", before = true, resultType = int.class)
     @Insert("INSERT INTO student (name, class_id, year) VALUES(#{name}, #{classId}, #{year})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     void insertStudent(Student student);
