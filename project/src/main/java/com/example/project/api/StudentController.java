@@ -1,5 +1,7 @@
 package com.example.project.api;
 
+import com.example.project.annotation.DataSourceType;
+import com.example.project.common.DataSourceEnum;
 import com.example.project.dto.StudentDto;
 import com.example.project.model.Student;
 import com.example.project.service.StudentService;
@@ -21,6 +23,12 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getStudents() {
+        return studentService.getStudents();
+    }
+
+    @GetMapping("/db2")
+    @DataSourceType(DataSourceEnum.DS2) // GET all students from second data source
+    public List<Student> getStudents2() {
         return studentService.getStudents();
     }
 
