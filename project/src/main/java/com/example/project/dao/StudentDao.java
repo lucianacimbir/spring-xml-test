@@ -1,75 +1,37 @@
 package com.example.project.dao;
 
-import com.example.project.MyBatisSqlSessionFactory;
-import com.example.project.mapper.interfaces.StudentMapper;
-import com.example.project.mapper.interfaces.StudentMapper2;
 import com.example.project.model.Student;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-@Repository
-public class StudentDao {
+@Mapper
+public interface StudentDao {
 
-    public List<Student> getAllStudents() {
-        // annotation type select
-//        SqlSession session = MyBatisXMLSqlSessionFactory.openSession();
-//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-//        return mapper.getStudents();
+    @Select("SELECT * FROM student")
+    @Results({
+            @Result(property = "classId", column = "class_id")
+    })
+    List<Student> getStudents();
 
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
+    @Select("SELECT * FROM student WHERE id = #{id}")
+    @Results({
+            @Result(property = "classId", column = "class_id")
+    })
+    Student getStudentById(@Param("id") Integer id);
 
-        StudentMapper mapper = session.getMapper(StudentMapper.class);
-        return mapper.selectAllStudentsProfiles();
+    @Select("SELECT * FROM student WHERE ${column} = #{value}")
+    @Results({
+            @Result(property = "classId", column = "class_id")
+    })
+    Student getStudentByColumn(@Param("column") String column, @Param("value") String value);
 
+    //    @SelectKey(statement = "SELECT identity('student')", keyProperty = "id", before = true, resultType = int.class)
+    @Insert("INSERT INTO student (name, class_id, year) VALUES(#{name}, #{classId}, #{year})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    void insertStudent(Student student);
 
-//        return studentMapper.selectAllStudentsProfiles();
-    }
-
-    public Student getStudentById(Integer id) {
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
-        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-
-        return mapper.getStudentById(id);
-    }
-
-    public Student getStudentByColumn(String column, String value) {
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
-        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-
-        return mapper.getStudentByColumn(column, value);
-    }
-
-    public void persistStudent(Student student) {
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
-//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-        StudentMapper mapper = session.getMapper(StudentMapper.class);
-
-        mapper.insertStudent(student);
-        session.commit();
-        session.close();
-    }
-
-    public void updateStudentName(Integer id, String name) {
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
-//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-        StudentMapper mapper = session.getMapper(StudentMapper.class);
-
-        mapper.updateStudentName(id, name);
-        session.commit();
-        session.close();
-    }
-
-    public void deleteStudent(Integer id) {
-        SqlSession session = MyBatisSqlSessionFactory.openSession();
-//        StudentMapper2 mapper = session.getMapper(StudentMapper2.class);
-        StudentMapper mapper = session.getMapper(StudentMapper.class);
-
-        mapper.deleteStudent(id);
-        session.commit();
-        session.close();
-    }
+    @Update("UPDATE student SET name = #{name} WHERE id = #{id}")
+    void updateStudentName(@Param("id") Integer id, @Param("name") String name);
 
 }

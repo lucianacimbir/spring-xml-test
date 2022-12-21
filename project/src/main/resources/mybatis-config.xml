@@ -4,6 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+<!--    NOT USED FOR CONFIGURATION ANYMORE-->
+
     <settings>
         <setting name="useColumnLabel" value="true"/>
         <setting name="useGeneratedKeys" value="true"/> <!-- default: false -->
@@ -37,7 +39,7 @@
         <mapper resource="StudentMapper.xml"/>
 
         <!-- Using mapper interface classes -->
-        <mapper class="com.example.project.mapper.interfaces.StudentMapper2"/>
+<!--        <mapper class="com.example.project.mapper.interfaces.ExampleMapper"/>-->
     </mappers>
 
 </configuration>

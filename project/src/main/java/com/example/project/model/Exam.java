@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.*;
 
 @Entity
+@Alias("Exam")
 public class Exam {
 
     @Id

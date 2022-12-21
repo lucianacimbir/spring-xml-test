@@ -2,12 +2,14 @@ package com.example.project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
+@Alias("Student")
 public class Student {
 
     @Id

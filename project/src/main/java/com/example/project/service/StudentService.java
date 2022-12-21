@@ -1,6 +1,7 @@
 package com.example.project.service;
 
 import com.example.project.dao.StudentDao;
+import com.example.project.dao.StudentXMLDao;
 import com.example.project.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,11 @@ public class StudentService {
     @Autowired
     private StudentDao studentDao;
 
+    @Autowired
+    private StudentXMLDao studentXMLDao;
+
     public List<Student> getStudents() {
-        return studentDao.getAllStudents();
+        return studentXMLDao.selectAllStudents();
     }
 
     public Student getStudentById(Integer id) {
@@ -32,7 +36,7 @@ public class StudentService {
     }
 
     public void persistStudent(Student student) {
-        studentDao.persistStudent(student);
+        studentXMLDao.insertStudent(student);
     }
 
     public void updateStudentName(Integer id, String name) {
@@ -40,6 +44,6 @@ public class StudentService {
     }
 
     public void deleteStudent(Integer id) {
-        studentDao.deleteStudent(id);
+        studentXMLDao.deleteStudent(id);
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.project.mapper.interfaces.StudentMapper">
+<mapper namespace="com.example.project.dao.StudentXMLDao">
 
     <resultMap id="studentResultMap" type="Student">    <!--autoMappingBehavior = PARTIAL // no nested mappings; autoMappingUnknownColumnBehavior = NONE-->
         <id property="id" column="id" />

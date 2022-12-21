@@ -1,4 +1,4 @@
-package com.example.project.mapper.interfaces;
+package com.example.project.dao;
 
 import com.example.project.model.Student;
 import org.apache.ibatis.annotations.Mapper;
@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface StudentMapper {
+public interface StudentXMLDao {
 
     List<Student> selectAllStudents();
 
