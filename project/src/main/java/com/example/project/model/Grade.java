@@ -1,9 +1,11 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 @Entity
+@Data
 @Alias("Grade")
 public class Grade {
 

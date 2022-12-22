@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.MODULE})
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface DataSourceType {
     DataSourceEnum value() default DataSourceEnum.DS1;
 }

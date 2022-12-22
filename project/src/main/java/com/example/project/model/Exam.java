@@ -1,12 +1,14 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
 
 @Entity
+@Data
 @Alias("Exam")
 public class Exam {
 
@@ -25,7 +27,7 @@ public class Exam {
     private String professor;
 
     @Column(name = "date")
-    @DateTimeFormat(pattern="yyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date date;
 
     @Column(name = "room")

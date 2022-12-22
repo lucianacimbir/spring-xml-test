@@ -18,7 +18,8 @@ public class StudentService {
     private StudentXMLDao studentXMLDao;
 
     public List<Student> getStudents() {
-        return studentXMLDao.selectAllStudents();
+//        return studentXMLDao.selectAllStudents();
+        return studentDao.getStudents();
     }
 
     public Student getStudentById(Integer id) {
