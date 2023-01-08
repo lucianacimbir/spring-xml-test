@@ -1,0 +1,14 @@
+request:
+  method: GET
+  url: /grade
+response:
+  status: 200
+  headers:
+    Content-Type: application/json
+  body:
+    - studentId: 15
+      examId: 42
+      grade: 8
+    - studentId: 16
+      examId: 42
+      grade: 9
